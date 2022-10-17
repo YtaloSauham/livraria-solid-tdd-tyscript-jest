@@ -1,0 +1,92 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "matricula": "00000",
+      "nome": "Ytalo"
+    }
+  ],
+  "emprestimo": [
+    {
+      "id": 1,
+      "idUser": "1",
+      "livro": [
+        {
+          "id": 1,
+          "titulo": "Naruto",
+          "autor": "Fulano",
+          "reservado": false,
+          "emprestado": true
+        }
+      ],
+      "dataEmprestimo": "19/10/2022",
+      "dataDevulocao": "20/10/2022",
+      "dataPrevistaDevolocao": "20/10/2022",
+      "precoAluguel": 20
+    },
+    {
+      "id": "uJ3LS_c",
+      "livro": [
+        {
+          "id": 2,
+          "titulo": "Naruto",
+          "autor": "Fulano",
+          "reservado": false,
+          "emprestado": true
+        }
+      ],
+      "dataEmprestimo": "19/10/2022",
+      "dataDevulocao": "20/10/2022",
+      "dataPrevistaDevolocao": "20/10/2022",
+      "precoAluguel": 20
+    },
+    {
+      "id": "SLYI02J",
+      "livro": [
+        {
+          "id": 2,
+          "titulo": "Naruto",
+          "autor": "Fulano",
+          "reservado": false,
+          "emprestado": true
+        }
+      ],
+      "dataEmprestimo": "19/10/2022",
+      "dataDevulocao": "20/10/2022",
+      "dataPrevistaDevolocao": "20/10/2022",
+      "precoAluguel": 20
+    },
+    {
+      "id": 4,
+      "livro": [
+        {
+          "id": 2,
+          "titulo": "Naruto",
+          "autor": "Fulano",
+          "reservado": false,
+          "emprestado": true
+        }
+      ],
+      "dataEmprestimo": "19/10/2022",
+      "dataDevulocao": "20/10/2022",
+      "dataPrevistaDevolocao": "20/10/2022",
+      "precoAluguel": 20
+    }
+  ],
+  "livro": [
+    {
+      "id": 1,
+      "titulo": "Naruto",
+      "autor": "Fulano",
+      "reservado": false,
+      "emprestado": true
+    },
+    {
+      "id": 2,
+      "titulo": "Bem 10",
+      "autor": "Fulano",
+      "reservado": false,
+      "emprestado": false
+    }
+  ]
+}
