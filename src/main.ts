@@ -1,29 +1,23 @@
-import express,{Request,Response } from "express";
-import axios from "axios";
+import Emprestimo from "./entities/Emprestimo";
+import Livro from "./entities/Livro";
+import Usuarios from "./entities/Usuarios";
+import EmprestimoServices from "./services/EmprestimoServices";
 
-const app = express();
-app.use(express.json());
 
-const url =  "http://localhost:3000/emprestimo"
+const livroTeste= new Livro(1,"1987","Fulano",false,false);
 
-app.post("/emprestimo", async function(request: Request, response: Response) {
-    
-    axios.post(url,request.body)
-    .then(response => {
-        console.log(response.data)
-    })
-    .catch(error=> console.log(error))
+const livroTeste2= new Livro(1,"1987","Fulano",true,false);
 
-    
-})
+const userTeste= new Usuarios(1,"Ytalo");
 
-app.get("/emprestimo", async function(request: Request, response: Response) {
-    
-    axios.get(url)
-    .then(response => console.log(response.data))
-    .catch(error=> console.log(error))
 
-    
-})
+let emprestimoService2 = new EmprestimoServices();
 
-app.listen(3001)
+let emprestimo = new Emprestimo()
+
+
+emprestimo = emprestimoService2.fazerEmprestimo(userTeste,livroTeste)
+
+
+console.log(emprestimo)
+
