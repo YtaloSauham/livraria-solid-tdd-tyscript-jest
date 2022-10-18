@@ -4,47 +4,57 @@ import Livro from '../entities/Livro'
 import Usuarios from '../entities/Usuarios'
 import MyDate from '../hook/MyDate';
 
-
+const FormatarDatas = require('../hook/FormatarDatas')
 
 export default class EmprestimoServices{
 
 
-    public validarLivro(LivroEmprestimo:Livro):Boolean{
+    public validarLivro(LivroEmprestimo:Array<Livro>):Array<Livro>{
 
-        const livroValidado:Livro = LivroEmprestimo;
-
+        const livroAux:Array<Livro> = new Array<Livro>();
+        livroAux.push(...LivroEmprestimo)
         
-        if(livroValidado.isEmprestado()===true || livroValidado.isReservado()===true){
-            return false
+        /*
+        for(let i = 0; i < livorAux.length;i++){
             
-            
-        } else{
-            return true
+            if(livroAux[i].isEmprestado()===true || livroAux[i].isReservado()===true){
+                
+                livroAux.slice(i,1)
+                i--;
+           
+            } else{
+               livroAux.
+            }
         }
+        */
+
+        const livroValidado:Array<Livro> = livroAux.filter(function(data, i , arr){
+            return data[i].isEmprestado()===false || data[i].isReservado()===false
+        })
+
+        return livroValidado
+
+       
 
     }
 
 
-    public fazerEmprestimo(UsuarioEmprestimo: Usuarios, LivroEmprestimo: Livro):Emprestimo{
+    public fazerEmprestimo(UsuarioEmprestimo: Usuarios, LivroEmprestimo: Array<Livro>):Emprestimo{
         
         const emprestimo:Emprestimo = new Emprestimo();
         const dataAux = new Date()
-        const livroEmprestimo:Livro = LivroEmprestimo;
+        const dataDevolucaoPresvista =FormatarDatas(this.calcularDataDevolucao(dataAux))
+        const dataInicialEmprestimo =FormatarDatas(dataAux)
 
-        const dataDevolucaoPresvista =require('../hook/FormatarDatas')(this.calcularDataDevolucao(dataAux))
+        const livroValidado = this.validarLivro(LivroEmprestimo)
 
-        const dataInicialEmprestimo =require('../hook/FormatarDatas')(dataAux)
-        
         
         try{   
-        if(this.validarLivro(LivroEmprestimo)) {
-            livroEmprestimo.setEmprestado(true)
-            livroEmprestimo.setReservado(true)
+        if(livroValidado.length > 0) {
             emprestimo.setIdUser(UsuarioEmprestimo.getId())
-            emprestimo.setLivro(livroEmprestimo)
+            emprestimo.setLivro(livroValidado)
             emprestimo.setDataInicioEmprestimo(dataInicialEmprestimo)
             emprestimo.setDataPrevistaDevolucaoEmprestimo(dataDevolucaoPresvista)
-            
             return emprestimo
             
             
@@ -64,4 +74,24 @@ export default class EmprestimoServices{
         devolucaoPrevista.addDays(7);
         return devolucaoPrevista
     }
+
+    public salvarEmprestimo(Emprestimo: Emprestimo):void{
+        const emprestimoDoUsuario: Array<Emprestimo> = new Array<Emprestimo>()
+        emprestimoDoUsuario.push(Emprestimo)
+    }
+
+    public reservarLivro(Livro:Array<Livro>):void{
+
+        const livroEmprestimo:Array<Livro> = Livro;
+
+        livroEmprestimo.forEach((element, index)=>{
+            element.setEmprestado(true)
+            element.setReservado(true)
+        })
+
+
+
+
+    }
+
 }

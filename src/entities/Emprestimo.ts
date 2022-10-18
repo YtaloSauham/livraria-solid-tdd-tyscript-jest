@@ -5,15 +5,14 @@ import Livro from '../entities/Livro'
     
     private _idEmprestimo : string;
     private idUser: Number;
-    private livro: Livro;
+    private livro: Array<Livro>;
     private dataInicioEmprestimo: Date;
     private dataPrevistaDevolucaoEmprestimo: Date;
     private dataDevoluicaoEmprestimo: Date;
     
    
-    constructor(
-    ) {
-        this._idEmprestimo = crypto.randomUUID();
+    constructor(idEmprestimo?) {
+        this._idEmprestimo = idEmprestimo ?? crypto.randomUUID();
     }
 
    
@@ -35,11 +34,11 @@ import Livro from '../entities/Livro'
         this.idUser = idUser;
     }
 
-    public getLivro(): Livro {
+    public getLivro(): Array<Livro> {
         return this.livro;
     }
 
-    public setLivro(livro:Livro): void {
+    public setLivro(livro:Array<Livro>): void {
         this.livro = livro;
     }
 
