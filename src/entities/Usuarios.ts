@@ -1,4 +1,4 @@
-class Usuarios{
+export default class Usuarios{
     private id:Number;
     private nome:String;
 

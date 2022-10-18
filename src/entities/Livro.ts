@@ -1,4 +1,4 @@
-class Livro {
+export default class Livro {
     
     private id:Number;
     private titulo:string;

@@ -1,32 +1,23 @@
 import axios from "axios";
+import EmprestimoServices from "../services/EmprestimoServices";
+import Emprestimo from '../entities/Emprestimo';
+import Livro from '../entities/Livro'
 
-test("Deve alugar um livro não emprestado", async function () {
+test("Deve alugar um livro não emprestado", function () {
 
-    await axios({
-        url:"http://localhost:3001/emprestimo",
-        method: "post",
-        data:{
-            id:4,
-            livro:[{
-                id:2,
-                titulo:"Naruto",
-                autor:"Fulano",
-                reservado:false,
-                emprestado:true
-            }],
-            dataEmprestimo:"19/10/2022",
-            dataDevulocao:"20/10/2022",
-            dataPrevistaDevolocao:"20/10/2022",
-            precoAluguel:20    
-        }
-    });
+    const livroTeste= new Livro(1,"1987","Fulano",false,false);
 
-    const responseGetEmprestimos = await axios({
-            url:"http://localhost:3001/emprestimo",
-            method: "get",
-    })
+    //const userTeste= new Usuarios(1,"Ytalo");
 
-    expect(responseGetEmprestimos).toHaveLength(2)
+    //const emprestimoService = new EmprestimoService.realizarEmprestimo(userTeste,livroTeste)
+    
+   const emprestimoService2 = new EmprestimoServices();
+   
+   const teste = emprestimoService2.validarLivro([livroTeste,livroTeste])
+
+  
+
+    expect(teste).toHaveLength(2)
 
 
     

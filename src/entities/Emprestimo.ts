@@ -1,37 +1,30 @@
-export default class Emprestimo{
+import crypto from 'crypto';
+import Livro from '../entities/Livro'
+
+ export default class Emprestimo{
     
-    private idEmprestimo : Number;
+    private _idEmprestimo : string;
     private idUser: Number;
-    private livro: Array<Livro>;
+    private livro: Livro;
     private dataInicioEmprestimo: Date;
     private dataPrevistaDevolucaoEmprestimo: Date;
     private dataDevoluicaoEmprestimo: Date;
-
-  constructor(
-    idEmprestimo: Number, 
-    idUser: Number, 
-    livro: Array<Livro>, 
-    dataInicioEmprestimo: Date, 
-    dataPrevistaDevolucaoEmprestimo: Date, 
-    dataDevoluicaoEmprestimo: Date
-) {
-    this.idEmprestimo = idEmprestimo
-    this.idUser = idUser
-    this.livro = livro
-    this.dataInicioEmprestimo = dataInicioEmprestimo
-    this.dataPrevistaDevolucaoEmprestimo = dataPrevistaDevolucaoEmprestimo
-    this.dataDevoluicaoEmprestimo = dataDevoluicaoEmprestimo
-  }
- 
+    
+   
+    constructor(
+    ) {
+        this._idEmprestimo = crypto.randomUUID();
+    }
 
    
 
-    public getIdEmprestimo(): Number {
-        return this.idEmprestimo;
-    }
 
-    public setIdEmprestimo(idEmprestimo: Number): void {
-        this.idEmprestimo = idEmprestimo;
+    public get_idEmprestimo(): string {
+        return this._idEmprestimo;
+    }
+    
+    public set_idEmprestimo(_idEmprestimo: string): void {
+        this._idEmprestimo = _idEmprestimo;
     }
 
     public getIdUser(): Number {
@@ -42,11 +35,11 @@ export default class Emprestimo{
         this.idUser = idUser;
     }
 
-    public getLivro(): Array<Livro> {
+    public getLivro(): Livro {
         return this.livro;
     }
 
-    public setLivro(livro: Array<Livro>): void {
+    public setLivro(livro:Livro): void {
         this.livro = livro;
     }
 
@@ -73,8 +66,6 @@ export default class Emprestimo{
     public setDataDevoluicaoEmprestimo(dataDevoluicaoEmprestimo: Date): void {
         this.dataDevoluicaoEmprestimo = dataDevoluicaoEmprestimo;
     }
-
-
 
 
 }
