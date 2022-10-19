@@ -1,5 +1,5 @@
 
-function formatarDatas(Data):String{
+function FormatarDatas(Data):String{
 
     const options = {
         year:"numeric",
@@ -11,4 +11,4 @@ function formatarDatas(Data):String{
 
 }
 
-module.exports=formatarDatas
+module.exports=FormatarDatas
