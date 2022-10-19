@@ -9,14 +9,38 @@ const livroTeste= new Livro(1,"1987","Fulano",false,false);
 
 const livroTeste2= new Livro(1,"1987","Fulano",true,false);
 
-const userTeste= new Usuarios(1,"Ytalo");
+const userComumTeste= new Usuarios(1,"Ytalo");
+
+const userSemEmprestimoTeste = new Usuarios(2,"Fulano")
 
 const formatarDatas = require('../hook/FormatarDatas')
+
+const emprestimo1Teste = {"_idEmprestimo":"1", 
+"dataInicioEmprestimo": "18/10/2022", 
+"dataPrevistaDevolucaoEmprestimo": "25/10/2022", 
+"idUser": 1, "livro": [{"autor": "Fulano", 
+"emprestado": true, "id": 1, "reservado": true, 
+"titulo": "1987"}]}
+
+const listaEmprestimos:Array<emprestimoProps> =[
+    {_idEmprestimo:"1", 
+    dataInicioEmprestimo: new Date(18/10/2022), 
+    dataPrevistaDevolucaoEmprestimo: new Date(25/10/2022), 
+    idUser: 1, livro: [{autor: "Fulano", 
+    emprestado: true, id: 1, reservado: true, 
+    titulo: "1987"}]}]
+
 
 type emprestimoProps={
     _idEmprestimo  : string;
     idUser: Number;
-    livro: Livro;
+    livro: [
+        id:Number,
+        titulo:string,
+        autor:string,
+        reservado:boolean,
+        emprestado:boolean
+    ];
     dataInicioEmprestimo: Date;
     dataPrevistaDevolucaoEmprestimo: Date;
     dataDevoluicaoEmprestimo: Date;
@@ -24,7 +48,7 @@ type emprestimoProps={
 }
 
 
-test.only("Deve verificar se o livro está disponivel para emprestimo", function () {
+test("Deve verificar se o livro está disponivel para emprestimo", function () {
 
     let emprestimoService2 = new EmprestimoServices();
     expect(emprestimoService2.validarLivro([livroTeste])).toHaveLength(1)
@@ -32,22 +56,22 @@ test.only("Deve verificar se o livro está disponivel para emprestimo", function
 })
 
 
-/*
+
 test("Deve fazer um emprestimo de um livro não reservado/emprestado", function () {
 
 
     let emprestimoService2 = new EmprestimoServices();
     let emprestimo = new Emprestimo(1)
-    emprestimo = emprestimoService2.fazerEmprestimo(userTeste,livroTeste)
+    emprestimo = emprestimoService2.fazerEmprestimo(userComumTeste,[livroTeste])
     
     emprestimo.set_idEmprestimo("1")
 
     expect(emprestimo).toMatchObject({"_idEmprestimo":"1", 
     "dataInicioEmprestimo": "18/10/2022", 
     "dataPrevistaDevolucaoEmprestimo": "25/10/2022", 
-    "idUser": 1, "livro": {"autor": "Fulano", 
+    "idUser": 1, "livro": [{"autor": "Fulano", 
     "emprestado": true, "id": 1, "reservado": true, 
-    "titulo": "1987"}})
+    "titulo": "1987"}]})
  
  })
 
@@ -55,10 +79,12 @@ test("Deve fazer um emprestimo de um livro não reservado/emprestado", function 
 test("Deve fazer um emprestimo de um livro reservado/emprestado", function () {
 
 
-    let emprestimoService2 = new EmprestimoServices();
-   
     
-    expect(emprestimoService2.fazerEmprestimo(userTeste,livroTeste2)).toThrowError()
+    let emprestimoService2 = new EmprestimoServices();
+    let emprestimo = new Emprestimo(1)
+    emprestimo = emprestimoService2.fazerEmprestimo(userComumTeste,[livroTeste2])
+    
+    expect(emprestimo).toThrowError()
 })
 
 
@@ -71,4 +97,14 @@ test("Deve garantirque a data prevista esteja correta,após a locação de um li
    
 
 }) 
-*/
+
+test("Deve testar um usuario sem emprestimos.", function () {
+    let emprestimoService2 = new EmprestimoServices();
+    let emprestimo = new Emprestimo(1)
+    emprestimo = emprestimoService2.fazerEmprestimo(userComumTeste,[livroTeste])
+    emprestimo.set_idEmprestimo("1")
+    expect(emprestimoService2.consultarEmprestimoPorUsuario(userSemEmprestimoTeste,[emprestimo])).toHaveLength(0)
+   
+
+}) 
+

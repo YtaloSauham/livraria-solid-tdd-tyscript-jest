@@ -9,6 +9,9 @@ import Livro from '../entities/Livro'
     private dataInicioEmprestimo: Date;
     private dataPrevistaDevolucaoEmprestimo: Date;
     private dataDevoluicaoEmprestimo: Date;
+    private precoEmprestimo: Number;
+
+ 
     
    
     constructor(idEmprestimo?) {
@@ -64,6 +67,14 @@ import Livro from '../entities/Livro'
 
     public setDataDevoluicaoEmprestimo(dataDevoluicaoEmprestimo: Date): void {
         this.dataDevoluicaoEmprestimo = dataDevoluicaoEmprestimo;
+    }
+
+    public getPrecoEmprestimo(): Number {
+        return this.precoEmprestimo;
+    }
+
+    public setPrecoEmprestimo(precoEmprestimo: Number): void {
+        this.precoEmprestimo = precoEmprestimo;
     }
 
     

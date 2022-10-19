@@ -29,7 +29,7 @@ export default class EmprestimoServices{
         */
 
         const livroValidado:Array<Livro> = livroAux.filter(function(data, i , arr){
-            return data[i].isEmprestado()===false || data[i].isReservado()===false
+            return data.isEmprestado()===false && data.isReservado()===false
         })
 
         return livroValidado
@@ -51,18 +51,20 @@ export default class EmprestimoServices{
         
         try{   
         if(livroValidado.length > 0) {
+            this.reservarLivro(livroValidado)
             emprestimo.setIdUser(UsuarioEmprestimo.getId())
             emprestimo.setLivro(livroValidado)
             emprestimo.setDataInicioEmprestimo(dataInicialEmprestimo)
             emprestimo.setDataPrevistaDevolucaoEmprestimo(dataDevolucaoPresvista)
+            this.salvarEmprestimo(emprestimo)
             return emprestimo
             
             
             } else {
-                throw new Error("Error");
+                throw new Error("Livro não pode ser nulo");
     }
         }catch(error){
-            throw error
+            throw new Error("Livros Selecionados já estão reservados")
         }
 
         
@@ -75,10 +77,31 @@ export default class EmprestimoServices{
         return devolucaoPrevista
     }
 
+
     public salvarEmprestimo(Emprestimo: Emprestimo):void{
         const emprestimoDoUsuario: Array<Emprestimo> = new Array<Emprestimo>()
         emprestimoDoUsuario.push(Emprestimo)
     }
+    
+
+    public consultarEmprestimoPorUsuario(UsuarioEmprestimo: Usuarios,Emprestimos:Array<Emprestimo>):Array<Emprestimo>{
+      
+        const emprestimosAux:Array<Emprestimo> = new Array<Emprestimo>(...Emprestimos)
+        const emprestimosPorUsuario:Array<Emprestimo>=emprestimosAux.filter(function(data, i , arr){
+            return data.getIdUser() === UsuarioEmprestimo.getId()
+       
+        })
+
+        return emprestimosPorUsuario
+    }
+
+       
+    
+   
+
+
+
+    
 
     public reservarLivro(Livro:Array<Livro>):void{
 
